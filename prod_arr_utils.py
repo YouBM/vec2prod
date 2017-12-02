@@ -2,6 +2,7 @@ import json
 import fileinput
 from pprint import pprint
 import numpy as np
+import Prod2Vec as P2V
 
 
 def load_prod_arr(file):
@@ -10,6 +11,12 @@ def load_prod_arr(file):
     return prod_arr
 
 def prod2vec(prod):
+
+    p2v = P2V.Prod2Vec()
+    return p2v.prod2vec(prod)
+
+    # OBSOLETE
+
     sel_ids = ["SPRING_SHOES", "SUMMER_SHOES", "AUTUMN_SHOES", "WINTER_SHOES"]
     params = prod['variant_data'][0]['params']
     params_ids = [a['id'] for a in params]

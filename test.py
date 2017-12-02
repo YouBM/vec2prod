@@ -1,49 +1,23 @@
-import json
-import fileinput
-from pprint import pprint
+import pprint
+
+from Prod2Vec import *
+from Vec2Prod import *
+import Utils
 
 
-def file_to_prod_arr(file):
-    f = open("products.json")
+p2v = Prod2Vec()
+v2p = Vec2Prod("prod_arr.json")
 
-    ids = []
-    ret = []
-    i = 0
-    for line in f:
-        obj = json.loads(line)
+prod_arr = Utils.load_prod_arr("prod_arr.json")
 
+prod = prod_arr[0]
 
-        i += 1
+pprint(p2v.prod2params(prod))
 
-        pid = int(obj['product_id'])
+vec = p2v.prod2vec(prod)
+print(vec)
 
-        if not pid in ids:
-            ids.append(pid)
-            ret.append(obj)
+pprods = v2p.vec2Prods(vec, 5)
 
-        #pprint(pid)
-        #if i >= 100:
-        #    break
-        if i%500 == 0:
-            print("Processing line %i and got %i products" % (i, len(ret)))
-
-    #ret = [ret[k] for k in ret]
-    return ret
-
-
-
-if __name__ == "__main__":
-    prods = file_to_prod_arr("products.json")
-
-    print("Got %i products overall" % len(prods))
-
-    f = open("prod_arr.json", "w+")
-    #for id in prods:
-    #    prod = prods[id]
-    #    json.dump(prod, f)
-    #    f.write("\n")
-
-    json.dump(prods, f)
-    f.close()
-
-    print("File saved.")
+for pprod in pprods:
+    print(pprod)

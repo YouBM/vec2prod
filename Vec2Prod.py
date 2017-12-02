@@ -1,6 +1,7 @@
 
 from prod_arr_utils import *
 
+
 class Prod:
     def __init__(self, dist, vec, product):
         self.dist = dist
